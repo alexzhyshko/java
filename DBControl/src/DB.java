@@ -13,7 +13,7 @@ public class DB implements DBInterface {
 	private String user;
 	private String password;
 	String connectionURL;
-	final static int capacity = 1000;
+	int capacity = 1000;
 	int size;
 	boolean status = false;
 
@@ -57,9 +57,10 @@ public class DB implements DBInterface {
 				
 			}catch(Exception e) {
 				this.status = false;
+				this.capacity = 0;
 				return false;
 			}
-			
+			this.capacity =1000;
 			return true;
 			
 		

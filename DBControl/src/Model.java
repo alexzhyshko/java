@@ -7,6 +7,7 @@ public class Model implements Runnable, ModelInterface {
 	private String DBuser;
 	private String DBpassword;
 	private int DBport;
+	String deadDate = "";
 	int DBsize;
 	int DBcapacity;
 

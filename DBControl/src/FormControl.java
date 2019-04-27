@@ -1,5 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -11,6 +17,15 @@ public class FormControl extends JFrame {
 
 	public FormControl(Controller controller) {
 		super("Database Control");
+		File f = new File("c:\\soft\\javaDB\\log.txt");
+		if(f.exists()){
+			f.delete();
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		JMenuBar bar = new JMenuBar();
 	    JMenu edit = new JMenu("Edit");
         JMenuItem add = new JMenuItem("Add");
@@ -50,6 +65,16 @@ public class FormControl extends JFrame {
   		    				if(result.equals("Success")) enterName.setVisible(false);
   		    				else {
   		    					status.setText(result+"(check info)");
+  		    				}
+  		    				String str = name.getText().trim()+" "+path.getText().trim()+" "+port.getText().trim()+" "+user.getText().trim()+" "+password.getText().trim();
+  		    				try {
+  		    			    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\dblist.txt", true));
+  		    			    writer.newLine();
+  		    			    writer.append(str);
+  		    			    writer.close();
+  		    			    
+  		    				}catch(Exception ex) {
+  		    					
   		    				}
   		    				
   		    			}catch(Throwable ex) {
@@ -96,7 +121,7 @@ public class FormControl extends JFrame {
 		
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 50, 500, 300);
+		this.setBounds(50, 50, 600, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().removeAll();
 		
@@ -127,21 +152,45 @@ public class FormControl extends JFrame {
 			panel.setLayout(new GridBagLayout()); 
 	        GridBagConstraints c = new GridBagConstraints(); 
 	        c.fill = GridBagConstraints.HORIZONTAL; 
-	        c.weightx = 0; 
 	        c.gridx = 0; 
 	        c.gridy = 1; 
-			String life = model.actualDBstatus?"Alive":"Dead";
-			JLabel nm = new JLabel(model.DBname);
+	        JLabel nm = new JLabel(model.DBname);
 			panel.add(nm,c);
+			String life = model.actualDBstatus?"Alive":"Disabled";
+			if(!model.actualDBstatus) {
+				c.gridx = 2; 
+		        c.gridy = 1; 
+				JLabel label = new JLabel();
+				label.setForeground(Color.RED);
+				
+				if(model.deadDate.isEmpty()) {
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					LocalDateTime now = LocalDateTime.now();
+					model.deadDate = dtf.format(now);
+					try {
+		    			    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\log.txt", true));
+		    			    writer.newLine();
+		    			    writer.append("Time: "+dtf.format(now)+", DB: "+model.DBname+" on "+model.getPath()+":"+model.getPort()+" disabled");
+		    			    writer.close();
+		    			    
+		    				}catch(Exception ex) {
+		    					
+		    				}
+				}
+				label.setText(model.deadDate);
+				
+				panel.add(label,c);
+			}
+			
 			c.gridx = 1; 
 	        c.gridy = 1; 
 			JLabel lf = new JLabel(life);
 			lf.setForeground(model.actualDBstatus?Color.BLUE:Color.RED);
 			panel.add(lf,c);
-			c.gridx = 2; 
-	        c.gridy = 1; 
-			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity),c);
 			c.gridx = 0; 
+	        c.gridy = 2; 
+			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity+ "  "),c);
+			c.gridx = 1; 
 	        c.gridy = 2; 
 			panel.add(new JLabel(model.getPath()+":"+model.getPort()),c);
 			container.add(panel);
