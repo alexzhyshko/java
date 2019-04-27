@@ -48,7 +48,6 @@ public class DB implements DBInterface {
 	}
 	@Override
 	public boolean accessCheck() {
-		if(status) {
 			try {
 				Connection conn = DriverManager.getConnection(this.connectionURL, user, password); 
 				String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
@@ -63,9 +62,7 @@ public class DB implements DBInterface {
 			
 			return true;
 			
-		}else {
-			return status;
-		}
+		
 	}
 	
 	public int updateSize() {

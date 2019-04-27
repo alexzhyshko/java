@@ -6,6 +6,7 @@ public class Model implements Runnable, ModelInterface {
 	private String DBpath;
 	private String DBuser;
 	private String DBpassword;
+	private int DBport;
 	int DBsize;
 	int DBcapacity;
 
@@ -14,6 +15,7 @@ public class Model implements Runnable, ModelInterface {
 		this.DBpassword = password;
 		this.DBpath = path;
 		this.DBuser = user;
+		this.DBport = port;
 		this.actualDBstatus = checkStatus();
 		DBname = name;
 	}
@@ -22,6 +24,9 @@ public class Model implements Runnable, ModelInterface {
 	}
 	public String getUser() {
 		return this.DBuser;
+	}
+	public int getPort() {
+		return this.DBport;
 	}
 
 	@Override
@@ -35,6 +40,7 @@ public class Model implements Runnable, ModelInterface {
 			}else {
 				DBname = fixedDB.name;
 				DBcapacity = fixedDB.capacity;
+				actualDBstatus = fixedDB.accessCheck();
 			}
 			
 		

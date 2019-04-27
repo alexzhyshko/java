@@ -105,6 +105,7 @@ public class FormControl extends JFrame {
 			JPanel panel = new JPanel();
 			panel.add(new JLabel(model.DBname));
 			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity));
+			panel.add(new JLabel(model.getPath()+":"+model.getPort()));
 			container.setLayout(new GridLayout((int) (result.size() / 2) + (int) (result.size() % 2), 3));
 			container.add(panel);
 		}
@@ -123,9 +124,26 @@ public class FormControl extends JFrame {
 			Container container = this.getContentPane();
 			container.setLayout(new GridLayout((int) (result.size() / 2) + (int) (result.size() % 2), 3));
 			JPanel panel = new JPanel();
+			panel.setLayout(new GridBagLayout()); 
+	        GridBagConstraints c = new GridBagConstraints(); 
+	        c.fill = GridBagConstraints.HORIZONTAL; 
+	        c.weightx = 0; 
+	        c.gridx = 0; 
+	        c.gridy = 1; 
 			String life = model.actualDBstatus?"Alive":"Dead";
-			panel.add(new JLabel(model.DBname +"("+life+"):"));
-			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity));
+			JLabel nm = new JLabel(model.DBname);
+			panel.add(nm,c);
+			c.gridx = 1; 
+	        c.gridy = 1; 
+			JLabel lf = new JLabel(life);
+			lf.setForeground(model.actualDBstatus?Color.BLUE:Color.RED);
+			panel.add(lf,c);
+			c.gridx = 2; 
+	        c.gridy = 1; 
+			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity),c);
+			c.gridx = 0; 
+	        c.gridy = 2; 
+			panel.add(new JLabel(model.getPath()+":"+model.getPort()),c);
 			container.add(panel);
 		}
 		this.invalidate();
