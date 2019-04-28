@@ -14,7 +14,7 @@ public class Main {
 
 		Controller controller = new Controller();
 		FormControl app = new FormControl(controller);
-		app.update();
+		
 		File file = new File("C:\\soft\\javaDb\\dblist.txt");
 
 		BufferedReader br;
@@ -43,6 +43,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		app.update();
 
 	}
 

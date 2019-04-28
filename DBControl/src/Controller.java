@@ -24,7 +24,7 @@ public class Controller {
 			preparedStmt.setString(1, name);
 			ResultSet rs = preparedStmt.executeQuery();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return "DB doen't exist";
 		}
 		for (Model model : DBpool) {
@@ -47,8 +47,10 @@ public class Controller {
 			}
 			service.shutdown();
 			try {
+				
 				service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 			} catch (InterruptedException e) {
+				e.printStackTrace();
 				System.out.println("InterruptedException in line:21 in Controller.java");
 			}
 		}

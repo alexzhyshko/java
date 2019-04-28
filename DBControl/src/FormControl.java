@@ -21,7 +21,7 @@ public class FormControl extends JFrame {
 		super("Database Control");
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 50, 1800, 990);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar bar = new JMenuBar();
 		JMenu edit = new JMenu("Edit");
@@ -47,7 +47,7 @@ public class FormControl extends JFrame {
 			panel.add(new JLabel(model.DBname));
 			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity));
 			panel.add(new JLabel(model.getPath() + ":" + model.getPort()));
-			container.setLayout(new GridLayout(0, 9));
+			container.setLayout(new GridLayout(0, 7));
 			container.add(panel);
 		}
 		this.invalidate();
@@ -102,7 +102,7 @@ public class FormControl extends JFrame {
 										writer.append(str);
 										writer.close();
 									} catch (Exception ex) {
-
+										ex.printStackTrace();
 									}
 
 									enterName.setVisible(false);
@@ -111,7 +111,7 @@ public class FormControl extends JFrame {
 								}
 
 							} catch (Throwable ex) {
-								System.out.println(ex.getMessage());
+								ex.printStackTrace();
 								if (ex.getMessage().equals("DB does not exist")) {
 									enterName.setVisible(false);
 									return;
@@ -185,7 +185,7 @@ public class FormControl extends JFrame {
 									writer.append(str);
 									writer.close();
 								} catch (IOException ex) {
-
+									ex.printStackTrace();
 								}
 
 							}
@@ -199,14 +199,13 @@ public class FormControl extends JFrame {
 	}
 
 	public void update() {
-
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 0, 1800, 990);
 		this.getContentPane().removeAll();
 
 		for (Model model : result) {
 			Container container = this.getContentPane();
-			container.setLayout(new GridLayout(0, 9));
+			container.setLayout(new GridLayout(0, 7));
 
 			JPanel panel = new JPanel();
 			panel.setBorder(new LineBorder(Color.black, 3));
@@ -219,13 +218,15 @@ public class FormControl extends JFrame {
 			c.gridx = 1;
 			c.gridy = 1;
 			JLabel nm = new JLabel(model.DBname);
+			nm.setForeground(model.actualDBstatus ? Color.BLUE : Color.RED);
+			nm.setPreferredSize(new Dimension(30,15));
 			panel.add(nm, c);
-			String life = model.actualDBstatus ? "Alive" : "Disabled ";
-			c.gridx = 0;
-			c.gridy = 4;
-			JLabel lf = new JLabel(life);
-			lf.setForeground(model.actualDBstatus ? Color.BLUE : Color.RED);
-			panel.add(lf, c);
+			//String life = model.actualDBstatus ? "Alive" : "Disabled ";
+			//c.gridx = 2;
+			//c.gridy = 1;
+			//JLabel lf = new JLabel(life);
+			
+			//panel.add(lf, c);
 
 			if (!model.actualDBstatus && !model.actualDBstatus) {
 				c.gridx = 0;
@@ -245,7 +246,7 @@ public class FormControl extends JFrame {
 						writer.close();
 
 					} catch (Exception ex) {
-
+						ex.printStackTrace();
 					}
 				}
 
@@ -285,6 +286,14 @@ public class FormControl extends JFrame {
 			progressBar.setMinimum(0);
 			progressBar.setMaximum(model.DBcapacity);
 			progressBar.setValue(model.DBsize);
+			float size = model.DBsize;
+			if(size/model.DBcapacity<0.3) {
+				progressBar.setForeground(Color.GREEN);
+			}else if(size/model.DBcapacity>=0.3&&model.DBsize/model.DBcapacity<0.8) {
+				progressBar.setForeground(Color.ORANGE);
+			}else {
+				progressBar.setForeground(Color.RED);
+			}
 			panel.add(progressBar, c);
 
 			c.gridx = 0;

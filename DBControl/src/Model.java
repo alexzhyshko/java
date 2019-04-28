@@ -54,6 +54,7 @@ public class Model implements Runnable, ModelInterface {
 		try {
 			return fixedDB.accessCheck();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

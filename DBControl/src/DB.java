@@ -31,7 +31,7 @@ public class DB implements DBInterface {
 				preparedStmt.setString(1, name);
 				ResultSet rs = preparedStmt.executeQuery();
 			} catch (SQLSyntaxErrorException e) {
-
+				e.printStackTrace();
 				return;
 			}
 			this.name = name;
@@ -51,6 +51,7 @@ public class DB implements DBInterface {
 			ResultSet rs = preparedStmt.executeQuery();
 			conn.close();
 		} catch (Exception e) {
+			e.printStackTrace();
 			this.status = false;
 			this.capacity = 0;
 			return false;
@@ -83,6 +84,7 @@ public class DB implements DBInterface {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return result;
@@ -93,6 +95,7 @@ public class DB implements DBInterface {
 		try {
 			return this.contents;
 		} catch (Throwable e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
