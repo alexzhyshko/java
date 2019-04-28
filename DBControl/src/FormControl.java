@@ -21,7 +21,7 @@ public class FormControl extends JFrame {
 		super("Database Control");
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar bar = new JMenuBar();
 		JMenu edit = new JMenu("Edit");
@@ -199,7 +199,7 @@ public class FormControl extends JFrame {
 	}
 
 	public void update() {
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		ArrayList<Model> result = controller.getAll();
 		this.getContentPane().removeAll();
 
@@ -219,18 +219,16 @@ public class FormControl extends JFrame {
 			c.gridy = 1;
 			JLabel nm = new JLabel(model.DBname);
 			nm.setForeground(model.actualDBstatus ? Color.BLUE : Color.RED);
-			nm.setPreferredSize(new Dimension(30,15));
+			nm.setPreferredSize(new Dimension(30, 15));
 			panel.add(nm, c);
-			//String life = model.actualDBstatus ? "Alive" : "Disabled ";
-			//c.gridx = 2;
-			//c.gridy = 1;
-			//JLabel lf = new JLabel(life);
-			
-			//panel.add(lf, c);
+			// String life = model.actualDBstatus ? "Alive" : "Disabled ";
+			// c.gridx = 2;
+			// c.gridy = 1;
+			// JLabel lf = new JLabel(life);
 
-			if (!model.actualDBstatus && !model.actualDBstatus) {
-				c.gridx = 0;
-				c.gridy = 4;
+			// panel.add(lf, c);
+
+			if (!model.actualDBstatus) {
 				JLabel label = new JLabel();
 				label.setForeground(Color.RED);
 
@@ -249,10 +247,14 @@ public class FormControl extends JFrame {
 						ex.printStackTrace();
 					}
 				}
-
+				c.gridx = 0;
+				c.gridy = 2;
+				JLabel label1 = new JLabel("Died at:");
+				panel.add(label1, c);
+				
 				label.setText(model.deadDate);
 				c.gridx = 1;
-				c.gridy = 4;
+				c.gridy = 2;
 
 				panel.add(label, c);
 			}
@@ -271,30 +273,35 @@ public class FormControl extends JFrame {
 
 				}
 				model.deadDate = this.emptyString;
+				
+			}
+			if(model.deadDate.isEmpty()&&model.actualDBstatus) {
+				c.gridx = 0;
+				c.gridy = 2;
+				JLabel label = new JLabel("Usage:");
+				panel.add(label, c);
+				c.gridx = 1;
+				c.gridy = 2;
+
+				JProgressBar progressBar = new JProgressBar();
+				progressBar.setPreferredSize(new Dimension(50, 14));
+				progressBar.setStringPainted(true);
+				progressBar.setMinimum(0);
+				progressBar.setMaximum(model.DBcapacity);
+				progressBar.setValue(model.DBsize);
+				float size = model.DBsize;
+				if (size / model.DBcapacity < 0.3) {
+					progressBar.setForeground(Color.GREEN);
+				} else if (size / model.DBcapacity >= 0.3 && model.DBsize / model.DBcapacity < 0.8) {
+					progressBar.setForeground(Color.ORANGE);
+				} else {
+					progressBar.setForeground(Color.RED);
+				}
+				panel.add(progressBar, c);
 			}
 
-			c.gridx = 0;
-			c.gridy = 2;
-			JLabel label = new JLabel("Usage:");
-			panel.add(label, c);
-			c.gridx = 1;
-			c.gridy = 2;
-
-			JProgressBar progressBar = new JProgressBar();
-			progressBar.setPreferredSize(new Dimension(50, 14));
-			progressBar.setStringPainted(true);
-			progressBar.setMinimum(0);
-			progressBar.setMaximum(model.DBcapacity);
-			progressBar.setValue(model.DBsize);
-			float size = model.DBsize;
-			if(size/model.DBcapacity<0.3) {
-				progressBar.setForeground(Color.GREEN);
-			}else if(size/model.DBcapacity>=0.3&&model.DBsize/model.DBcapacity<0.8) {
-				progressBar.setForeground(Color.ORANGE);
-			}else {
-				progressBar.setForeground(Color.RED);
-			}
-			panel.add(progressBar, c);
+			
+			
 
 			c.gridx = 0;
 			c.gridy = 3;
