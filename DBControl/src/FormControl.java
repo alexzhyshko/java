@@ -8,12 +8,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 public class FormControl extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static Controller controller;
 	public String addedDBname="";
-	int updateRate = 10000;// in millis
+	int updateRate = 5000;// in millis
 	public final String emptyString = "";
 	public FormControl(Controller controller) {
 		super("Database Control");
@@ -29,6 +30,7 @@ public class FormControl extends JFrame {
 		JMenuBar bar = new JMenuBar();
 	    JMenu edit = new JMenu("Edit");
         JMenuItem add = new JMenuItem("Add");
+        JMenuItem remove = new JMenuItem("Remove");
         add.addActionListener(new ActionListener()
 		{
   		  public void actionPerformed(ActionEvent e)
@@ -69,10 +71,14 @@ public class FormControl extends JFrame {
   		  		    			    writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\dblist.txt", true));
   		  		    			    writer.append(str);
   		  		    			    writer.close();
-  		  		    			    
+  		  		    			    writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\log.txt", true));
+  		  		    			    str = "Added DB:'"+name.getText().trim()+"'\n";
+  		  		    			    writer.append(str);
+		  		    			    writer.close();
   		  		    				}catch(Exception ex) {
   		  		    					
   		  		    				}
+  		    					
   		    					enterName.setVisible(false);
   		    				}
   		    				else {
@@ -117,14 +123,65 @@ public class FormControl extends JFrame {
   		  }
   		 
   		});
+        remove.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e){
+        		JFrame remover = new JFrame();
+        		remover.setBounds(50,50,200,300);
+        		remover.setTitle("Remove DB");
+        		JLabel label = new JLabel("DB name");
+        		JTextField name = new JTextField();
+        		JLabel label1 = new JLabel("DB path");
+        		JTextField path = new JTextField();
+        		JLabel label2 = new JLabel("DB port");
+        		JTextField port = new JTextField();
+        		JButton button = new JButton("Remove");
+        		Container container = remover.getContentPane();
+      		    container.setLayout(new GridLayout(0,1,2,2));
+      		    name.setPreferredSize(new Dimension(100,30));
+      		    path.setPreferredSize(new Dimension(100,30));
+      		    port.setPreferredSize(new Dimension(100,30));
+      		    container.add(label);
+      		    container.add(name);
+      		    container.add(label1);
+      		    container.add(path);
+      		    container.add(label2);
+      		    container.add(port);
+      		    container.add(button);
+      		    remover.setVisible(true);
+      		    button.addActionListener(new ActionListener() {
+      		    	public void actionPerformed(ActionEvent e) {
+      		    		for(Model model : controller.getModels()) {
+      		    			if(model.DBname.equals(name.getText().trim())&&model.DBpath.equals(path.getText().trim())&&model.DBport==Integer.parseInt(port.getText().trim())) {
+      		    				
+      		    				controller.models.remove(model);
+      		    				controller.DBpool.remove(model);
+      		    				try{
+      		    				BufferedWriter writer;
+      		    				writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\log.txt", true));
+		  		    			String str = "Removed DB:'"+model.DBname+"'\n";
+		  		    			writer.append(str);
+	  		    			    writer.close();
+      		    				}catch(IOException ex) {
+      		    					
+      		    				}
+      		    				
+      		    			}
+      		    		}
+      		    	}
+      		    });
+        		
+        	}
+        });
         edit.add(add);
+        edit.add(remove);
         bar.add(edit);
+        
         setJMenuBar(bar);
        
 		
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 50, 600, 300);
+		this.setBounds(50, 50, 1000, (result.size()/4)*100);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().removeAll();
 		
@@ -146,23 +203,35 @@ public class FormControl extends JFrame {
 	public void update() {
 		
 		ArrayList<Model> result = controller.getAll();
+		this.setBounds(50, 50, 1000, (result.size()/4)*100);
 		this.getContentPane().removeAll();
 		
 		for (Model model : result) {
 			Container container = this.getContentPane();
 			container.setLayout(new GridLayout(0, 4));
+			
 			JPanel panel = new JPanel();
+			panel.setBorder(new LineBorder(Color.black, 3));
 			panel.setLayout(new GridBagLayout()); 
 	        GridBagConstraints c = new GridBagConstraints(); 
 	        c.fill = GridBagConstraints.HORIZONTAL; 
 	        c.gridx = 0; 
 	        c.gridy = 1; 
+	        panel.add(new JLabel("Name"),c);
+	        c.gridx = 1; 
+	        c.gridy = 1; 
 	        JLabel nm = new JLabel(model.DBname);
 			panel.add(nm,c);
-			String life = model.actualDBstatus?"Alive":"Disabled";
+			String life = model.actualDBstatus?"Alive":"Disabled ";
+			c.gridx =0 ;
+			c.gridy = 4;
+			JLabel lf = new JLabel(life);
+			lf.setForeground(model.actualDBstatus?Color.BLUE:Color.RED);
+			panel.add(lf,c);
+			
 			if(!model.actualDBstatus&&!model.actualDBstatus) {
-				c.gridx = 2; 
-		        c.gridy = 1; 
+				c.gridx = 0; 
+		        c.gridy = 4; 
 				JLabel label = new JLabel();
 				label.setForeground(Color.RED);
 				
@@ -182,6 +251,8 @@ public class FormControl extends JFrame {
 				}
 				
 				label.setText(model.deadDate);
+				c.gridx = 1;
+				c.gridy = 4;
 				
 				panel.add(label,c);
 			}if(!model.deadDate.isEmpty()&&model.actualDBstatus){
@@ -200,17 +271,29 @@ public class FormControl extends JFrame {
 				model.deadDate = this.emptyString;
 			}
 			
-			c.gridx = 1; 
-	        c.gridy = 1; 
-			JLabel lf = new JLabel(life);
-			lf.setForeground(model.actualDBstatus?Color.BLUE:Color.RED);
-			panel.add(lf,c);
 			c.gridx = 0; 
 	        c.gridy = 2; 
-			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity+ "  "),c);
+			JLabel label = new JLabel("Usage:");
+			panel.add(label,c);
 			c.gridx = 1; 
 	        c.gridy = 2; 
+	        
+	        JProgressBar progressBar = new JProgressBar();
+	        progressBar.setPreferredSize(new Dimension(50,10));
+	        progressBar.setStringPainted(true);
+	        progressBar.setMinimum(0);
+	        progressBar.setMaximum(model.DBcapacity);
+	        progressBar.setValue(model.DBsize);
+	        panel.add(progressBar, c);
+	        
+	       
+			c.gridx = 0; 
+	        c.gridy = 3; 
+			panel.add(new JLabel("Path: "),c);
+			c.gridx = 1; 
+	        c.gridy = 3; 
 			panel.add(new JLabel(model.getPath()+":"+model.getPort()),c);
+			
 			container.add(panel);
 		}
 		this.invalidate();

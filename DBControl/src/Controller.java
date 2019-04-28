@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Controller {
-	private ArrayList<Model> models = new ArrayList<>();
-	private ArrayList<Model> DBpool = new ArrayList<>();
+	ArrayList<Model> models = new ArrayList<>();
+	ArrayList<Model> DBpool = new ArrayList<>();
 	public String addDB(String name, String path,int port, String user, String password) {
 		try {
 			String connectionURL="jdbc:mysql://"+path+"/"+name+"?user="+user+"&password="+password+"&serverTimezone=UTC";
@@ -55,6 +55,9 @@ public class Controller {
 
 	public ArrayList<Model> getAll() {
 		updateStatus();
+		return models;
+	}
+	public ArrayList<Model> getModels() {
 		return models;
 	}
 }

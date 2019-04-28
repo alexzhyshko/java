@@ -3,10 +3,10 @@ public class Model implements Runnable, ModelInterface {
 	DB fixedDB;
 	Boolean actualDBstatus = false;
 	String DBname;
-	private String DBpath;
+	String DBpath;
 	private String DBuser;
 	private String DBpassword;
-	private int DBport;
+	int DBport;
 	String deadDate = "";
 	int DBsize;
 	int DBcapacity;
