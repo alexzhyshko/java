@@ -21,7 +21,7 @@ public class FormControl extends JFrame {
 		super("Database Control");
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 50, 1000, (result.size() / 4) * 100);
+		this.setBounds(50, 50, 1800, 990);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JMenuBar bar = new JMenuBar();
 		JMenu edit = new JMenu("Edit");
@@ -47,7 +47,7 @@ public class FormControl extends JFrame {
 			panel.add(new JLabel(model.DBname));
 			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity));
 			panel.add(new JLabel(model.getPath() + ":" + model.getPort()));
-			container.setLayout(new GridLayout(0, 4));
+			container.setLayout(new GridLayout(0, 9));
 			container.add(panel);
 		}
 		this.invalidate();
@@ -201,12 +201,12 @@ public class FormControl extends JFrame {
 	public void update() {
 
 		ArrayList<Model> result = controller.getAll();
-		this.setBounds(50, 50, 1000, (result.size() / 4) * 100);
+		this.setBounds(50, 0, 1800, 990);
 		this.getContentPane().removeAll();
 
 		for (Model model : result) {
 			Container container = this.getContentPane();
-			container.setLayout(new GridLayout(0, 4));
+			container.setLayout(new GridLayout(0, 9));
 
 			JPanel panel = new JPanel();
 			panel.setBorder(new LineBorder(Color.black, 3));
