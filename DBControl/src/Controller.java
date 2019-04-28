@@ -13,20 +13,22 @@ import java.util.concurrent.TimeUnit;
 public class Controller {
 	ArrayList<Model> models = new ArrayList<>();
 	ArrayList<Model> DBpool = new ArrayList<>();
-	public String addDB(String name, String path,int port, String user, String password) {
+
+	public String addDB(String name, String path, int port, String user, String password) {
 		try {
-			String connectionURL="jdbc:mysql://"+path+"/"+name+"?user="+user+"&password="+password+"&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connectionURL); 
+			String connectionURL = "jdbc:mysql://" + path + "/" + name + "?user=" + user + "&password=" + password
+					+ "&serverTimezone=UTC";
+			Connection conn = DriverManager.getConnection(connectionURL);
 			String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, name);
 			ResultSet rs = preparedStmt.executeQuery();
-			}catch(Exception e) {
-				
-				return "DB doen't exist";
-			}
-		for(Model model : DBpool) {
-			if(model.getPath().equals(path)&&model.DBname.equals(name)&&model.getUser().equals(user)) {
+		} catch (Exception e) {
+
+			return "DB doen't exist";
+		}
+		for (Model model : DBpool) {
+			if (model.getPath().equals(path) && model.DBname.equals(name) && model.getUser().equals(user)) {
 				return "DB already added";
 			}
 		}
@@ -36,20 +38,19 @@ public class Controller {
 		return "Success";
 	}
 
-
 	private void updateStatus() {
-		if(models.size()!=0) {
-		ExecutorService service = Executors.newFixedThreadPool(models.size());
-		for (Model entry : models) {
-			Model task = entry;
-			service.submit(task);
-		}
-		service.shutdown();
-		try {
-			service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-		} catch (InterruptedException e) {
-			System.out.println("InterruptedException in line:21 in Controller.java");
-		}
+		if (models.size() != 0) {
+			ExecutorService service = Executors.newFixedThreadPool(models.size());
+			for (Model entry : models) {
+				Model task = entry;
+				service.submit(task);
+			}
+			service.shutdown();
+			try {
+				service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			} catch (InterruptedException e) {
+				System.out.println("InterruptedException in line:21 in Controller.java");
+			}
 		}
 	}
 
@@ -57,6 +58,7 @@ public class Controller {
 		updateStatus();
 		return models;
 	}
+
 	public ArrayList<Model> getModels() {
 		return models;
 	}

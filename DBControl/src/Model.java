@@ -11,7 +11,7 @@ public class Model implements Runnable, ModelInterface {
 	int DBsize;
 	int DBcapacity;
 
-	public Model(String name,String path,int port, String user, String password) {
+	public Model(String name, String path, int port, String user, String password) {
 		this.fixedDB = new DB(name, path, port, user, password);
 		this.DBpassword = password;
 		this.DBpath = path;
@@ -20,34 +20,34 @@ public class Model implements Runnable, ModelInterface {
 		this.actualDBstatus = checkStatus();
 		DBname = name;
 	}
+
 	public String getPath() {
 		return this.DBpath;
 	}
+
 	public String getUser() {
 		return this.DBuser;
 	}
+
 	public int getPort() {
 		return this.DBport;
 	}
 
 	@Override
 	public void run() {
-		
+
+		actualDBstatus = fixedDB.accessCheck();
+		if (actualDBstatus) {
+			DBname = fixedDB.name;
+			DBsize = fixedDB.updateSize();
+			DBcapacity = fixedDB.capacity;
+		} else {
+			DBname = fixedDB.name;
+			DBcapacity = fixedDB.capacity;
 			actualDBstatus = fixedDB.accessCheck();
-			if(actualDBstatus) {
-				DBname = fixedDB.name;
-				DBsize = fixedDB.updateSize();
-				DBcapacity = fixedDB.capacity;
-			}else {
-				DBname = fixedDB.name;
-				DBcapacity = fixedDB.capacity;
-				actualDBstatus = fixedDB.accessCheck();
-			}
-			
-		
+		}
 
 	}
-
 
 	@Override
 	public boolean checkStatus() {
