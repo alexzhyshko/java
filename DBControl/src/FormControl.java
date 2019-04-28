@@ -62,20 +62,23 @@ public class FormControl extends JFrame {
   		    		if(!name.getText().trim().isEmpty()&&!path.getText().trim().isEmpty()&&!user.getText().trim().isEmpty()&&!password.getText().trim().isEmpty()) {
   		    			try {
   		    				String result = controller.addDB(name.getText().trim(), path.getText().trim(),Integer.parseInt(port.getText().trim()), user.getText().trim(), password.getText().trim());
-  		    				if(result.equals("Success")) enterName.setVisible(false);
+  		    				String str = name.getText().trim()+" "+path.getText().trim()+" "+port.getText().trim()+" "+user.getText().trim()+" "+password.getText().trim()+"\n";
+  		    				BufferedWriter writer;
+  		    				if(result.equals("Success")) {
+  		    					try {
+  		  		    			    writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\dblist.txt", true));
+  		  		    			    writer.append(str);
+  		  		    			    writer.close();
+  		  		    			    
+  		  		    				}catch(Exception ex) {
+  		  		    					
+  		  		    				}
+  		    					enterName.setVisible(false);
+  		    				}
   		    				else {
   		    					status.setText(result+"(check info)");
   		    				}
-  		    				String str = name.getText().trim()+" "+path.getText().trim()+" "+port.getText().trim()+" "+user.getText().trim()+" "+password.getText().trim();
-  		    				try {
-  		    			    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\dblist.txt", true));
-  		    			    writer.newLine();
-  		    			    writer.append(str);
-  		    			    writer.close();
-  		    			    
-  		    				}catch(Exception ex) {
-  		    					
-  		    				}
+  		    				
   		    				
   		    			}catch(Throwable ex) {
   		    				System.out.println(ex.getMessage());
@@ -177,9 +180,24 @@ public class FormControl extends JFrame {
 		    					
 		    				}
 				}
+				
 				label.setText(model.deadDate);
 				
 				panel.add(label,c);
+			}if(!model.deadDate.isEmpty()&&model.actualDBstatus){
+				model.deadDate = "";
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+				LocalDateTime now = LocalDateTime.now();
+				model.deadDate = dtf.format(now);
+				try {
+	    			    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\log.txt", true));
+	    			    writer.newLine();
+	    			    writer.append("Time: "+dtf.format(now)+", DB: "+model.DBname+" on "+model.getPath()+":"+model.getPort()+" went back alive");
+	    			    writer.close();
+	    			    
+	    				}catch(Exception ex) {
+	    					
+	    				}
 			}
 			
 			c.gridx = 1; 

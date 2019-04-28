@@ -16,6 +16,7 @@ public class DB implements DBInterface {
 	int capacity = 1000;
 	int size;
 	boolean status = false;
+	Connection connection;
 
 	public DB(String name, String path,int port, String user, String password) {
 		try {
@@ -24,9 +25,9 @@ public class DB implements DBInterface {
 			this.user = user;
 			try {
 			this.connectionURL="jdbc:mysql://"+path+":3306/"+name+"?user="+user+"&password="+password+"&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(this.connectionURL); 
+			this.connection = DriverManager.getConnection(this.connectionURL); 
 			String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			PreparedStatement preparedStmt = connection.prepareStatement(query);
 			preparedStmt.setString(1, name);
 			ResultSet rs = preparedStmt.executeQuery();
 			}catch(SQLSyntaxErrorException e) {
@@ -34,10 +35,8 @@ public class DB implements DBInterface {
 				return;
 			}
 			this.name = name;
-			this.connectionURL  = "jdbc:mysql://"+path+":"+port+"/"+name+"?&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(this.connectionURL, user, password); 
 			String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			PreparedStatement preparedStmt = connection.prepareStatement(query);
 			preparedStmt.setString(1, name);
 			ResultSet rs = preparedStmt.executeQuery();
 			this.size = updateSize();
@@ -48,13 +47,12 @@ public class DB implements DBInterface {
 	}
 	@Override
 	public boolean accessCheck() {
-			try {
-				Connection conn = DriverManager.getConnection(this.connectionURL, user, password); 
+			try (Connection conn = DriverManager.getConnection(this.connectionURL); ){
 				String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
 				PreparedStatement preparedStmt = conn.prepareStatement(query);
 				preparedStmt.setString(1, name);
 				ResultSet rs = preparedStmt.executeQuery();
-				
+				conn.close();
 			}catch(Exception e) {
 				this.status = false;
 				this.capacity = 0;
@@ -70,9 +68,8 @@ public class DB implements DBInterface {
 		int result = 0;
 		
 		try {
-			Connection conn = DriverManager.getConnection(this.connectionURL, user,password);
 			String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			PreparedStatement preparedStmt = connection.prepareStatement(query);
 			preparedStmt.setString(1, name);
 			ResultSet rs = preparedStmt.executeQuery();
 			
@@ -81,7 +78,7 @@ public class DB implements DBInterface {
 				String query2 = "select count(*) from DBnm.TBnm";
 				query2 = query2.replaceFirst("DBnm", this.name);
 				query2 = query2.replaceFirst("TBnm", rs.getString(2));
-				Statement statement = conn.prepareStatement(query2);
+				Statement statement = connection.prepareStatement(query2);
 				ResultSet rs2 = statement.executeQuery(query2);
 				while(rs2.next()) {
 				temp=rs2.getInt(1);
