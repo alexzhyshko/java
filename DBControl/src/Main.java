@@ -22,7 +22,6 @@ public class Main {
 			  String st; 
 			  while ((st = br.readLine()) != null) { 
 			    String[] line = st.split(" ");
-			    System.out.println(line);
 			    String result = controller.addDB(line[0], line[1], Integer.parseInt(line[2]), line[3], line[4]);
 			    try {
 	    			    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\soft\\javaDb\\log.txt", true));

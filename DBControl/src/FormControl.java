@@ -13,8 +13,8 @@ public class FormControl extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static Controller controller;
 	public String addedDBname="";
-	int updateRate = 2000;// in millis
-
+	int updateRate = 10000;// in millis
+	public final String emptyString = "";
 	public FormControl(Controller controller) {
 		super("Database Control");
 		File f = new File("c:\\soft\\javaDB\\log.txt");
@@ -134,7 +134,7 @@ public class FormControl extends JFrame {
 			panel.add(new JLabel(model.DBname));
 			panel.add(new JLabel(model.DBsize + "/" + model.DBcapacity));
 			panel.add(new JLabel(model.getPath()+":"+model.getPort()));
-			container.setLayout(new GridLayout((int) (result.size() / 2) + (int) (result.size() % 2), 3));
+			container.setLayout(new GridLayout(0, 4));
 			container.add(panel);
 		}
 		this.invalidate();
@@ -150,7 +150,7 @@ public class FormControl extends JFrame {
 		
 		for (Model model : result) {
 			Container container = this.getContentPane();
-			container.setLayout(new GridLayout((int) (result.size() / 2) + (int) (result.size() % 2), 3));
+			container.setLayout(new GridLayout(0, 4));
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridBagLayout()); 
 	        GridBagConstraints c = new GridBagConstraints(); 
@@ -160,14 +160,14 @@ public class FormControl extends JFrame {
 	        JLabel nm = new JLabel(model.DBname);
 			panel.add(nm,c);
 			String life = model.actualDBstatus?"Alive":"Disabled";
-			if(!model.actualDBstatus) {
+			if(!model.actualDBstatus&&!model.actualDBstatus) {
 				c.gridx = 2; 
 		        c.gridy = 1; 
 				JLabel label = new JLabel();
 				label.setForeground(Color.RED);
 				
 				if(model.deadDate.isEmpty()) {
-					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss yyyy/MM/dd");
 					LocalDateTime now = LocalDateTime.now();
 					model.deadDate = dtf.format(now);
 					try {
@@ -185,8 +185,7 @@ public class FormControl extends JFrame {
 				
 				panel.add(label,c);
 			}if(!model.deadDate.isEmpty()&&model.actualDBstatus){
-				model.deadDate = "";
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss yyyy/MM/dd");
 				LocalDateTime now = LocalDateTime.now();
 				model.deadDate = dtf.format(now);
 				try {
@@ -198,6 +197,7 @@ public class FormControl extends JFrame {
 	    				}catch(Exception ex) {
 	    					
 	    				}
+				model.deadDate = this.emptyString;
 			}
 			
 			c.gridx = 1; 
