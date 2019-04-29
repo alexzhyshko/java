@@ -50,18 +50,8 @@ public class DB implements DBInterface {
 
 	@Override
 	public boolean accessCheck() {
-		String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
-		try (PreparedStatement preparedStmt = connection.prepareStatement(query);){
-			preparedStmt.setString(1, name);
-			try(ResultSet rs = preparedStmt.executeQuery();){
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-				this.status = false;
-				this.capacity = 0;
-				return false;
-			}
-			
+		String query = "select 1;";
+		try(Connection connect = DriverManager.getConnection(this.connectionURL);) {
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.status = false;
