@@ -22,7 +22,7 @@ public class FormControl extends JFrame {
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setDefaultCloseOperation(controller.close());
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		JMenuBar bar = new JMenuBar();
 		JMenu edit = new JMenu("Edit");
 		JMenuItem add = new JMenuItem("Add");
