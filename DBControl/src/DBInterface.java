@@ -5,5 +5,6 @@ public interface DBInterface {
 	public ArrayList<Object[]> getContents();
 	public boolean accessCheck();
 	public int updateSize();
+	public void closeConnection();
 
 }

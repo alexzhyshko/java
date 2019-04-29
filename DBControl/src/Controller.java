@@ -1,10 +1,8 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLSyntaxErrorException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,14 +13,12 @@ public class Controller {
 	ArrayList<Model> DBpool = new ArrayList<>();
 
 	public String addDB(String name, String path, int port, String user, String password) {
-		try {
-			String connectionURL = "jdbc:mysql://" + path + "/" + name + "?user=" + user + "&password=" + password
-					+ "&serverTimezone=UTC";
-			Connection conn = DriverManager.getConnection(connectionURL);
-			String query = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, name);
-			ResultSet rs = preparedStmt.executeQuery();
+		String connectionURL = "jdbc:mysql://" + path + "/" + name + "?user=" + user + "&password=" + password
+				+ "&serverTimezone=UTC";
+		try (Connection conn = DriverManager.getConnection(connectionURL);
+			PreparedStatement preparedStmt = createPreparedStatement(conn,name);
+			ResultSet rs = preparedStmt.executeQuery();){
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "DB doen't exist";
@@ -37,7 +33,12 @@ public class Controller {
 		DBpool.add(newModel);
 		return "Success";
 	}
-
+	private PreparedStatement createPreparedStatement(Connection con, String name) throws SQLException {
+	    String sql = "select table_schema as database_name,table_name from information_schema.tables where table_type = 'BASE TABLE' and table_schema = ? order by database_name, table_name;";
+	    PreparedStatement ps = con.prepareStatement(sql);
+	    ps.setString(1, name);
+	    return ps;
+	}
 	private void updateStatus() {
 		if (models.size() != 0) {
 			ExecutorService service = Executors.newFixedThreadPool(models.size());
@@ -63,5 +64,14 @@ public class Controller {
 
 	public ArrayList<Model> getModels() {
 		return models;
+	}
+
+	public int close() {
+		if(models.size()!=0) {
+			for(Model model : models) {
+				model.fixedDB.closeConnection();
+			}
+		}
+		return 1;
 	}
 }

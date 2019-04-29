@@ -44,6 +44,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		app.update();
+		
 
 	}
 

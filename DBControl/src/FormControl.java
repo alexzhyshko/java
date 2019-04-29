@@ -22,7 +22,7 @@ public class FormControl extends JFrame {
 		this.controller = controller;
 		ArrayList<Model> result = controller.getAll();
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(controller.close());
 		JMenuBar bar = new JMenuBar();
 		JMenu edit = new JMenu("Edit");
 		JMenuItem add = new JMenuItem("Add");
@@ -221,12 +221,6 @@ public class FormControl extends JFrame {
 			nm.setForeground(model.actualDBstatus ? Color.BLUE : Color.RED);
 			nm.setPreferredSize(new Dimension(30, 15));
 			panel.add(nm, c);
-			// String life = model.actualDBstatus ? "Alive" : "Disabled ";
-			// c.gridx = 2;
-			// c.gridy = 1;
-			// JLabel lf = new JLabel(life);
-
-			// panel.add(lf, c);
 
 			if (!model.actualDBstatus) {
 				JLabel label = new JLabel();
@@ -315,10 +309,15 @@ public class FormControl extends JFrame {
 		this.invalidate();
 		this.validate();
 		this.repaint();
+		if(!this.isVisible()) {
+			System.exit(0);
+		}
 		new java.util.Timer().schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
+				
 				update();
+				
 			}
 		}, updateRate);
 	}
