@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.search_query {
+	width: 15%;
+}
+
+
+body{
+		
+	
+	
+}
+
+#wrapper{
+	width: 100%;
+	height: 1000px;
+	background: lightgray;
+	
+	
+}
+
+#header{
+	border: 1px solid black;
+	margin-top: 5px;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+	height: 50px;
+	background: gray;
+	
+}
+
+#content{
+	border: 1px solid black;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+	height: 950px;
+	background: gray;
+	
+	
+}
+
+#header{
+	border: 1px solid black;
+	margin-left: 5%;
+	margin-right: 5%;
+	width: 90%;
+	height: 50px;
+	background: gray;
+	
+	
+}
+
+#result_table{
+	width: 90%;
+	
+}
