@@ -1,0 +1,12 @@
+mydb
+bookshelf
+root
+root
+localhost
+3306
+mydb
+logdata
+root
+root
+localhost
+3306
