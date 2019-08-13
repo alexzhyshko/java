@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root{
+  --winheight: 150px;
+}
+
+#copyright{
+  position:absolute;
+  margin-top: 5px;
+  margin-left: 8px;
+  font-size: 25px;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+h1{
+  color: #000;
+  font-weight: bold;
+  margin: 0;
+  font-size: 55px;
+  border-bottom: 4px solid white;
+
+}
+
+body{
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: url("img/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+#wrapper{
+
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  padding-top: 25px;
+  margin-top: 25px;
+  height: 100%;
+  min-height: 100vh;
+  background: rgba(209,209,209, 0.15);
+
+}
+#header{
+  width:95%;
+  height: 50px;
+  background: #244ecc;
+  position: fixed;
+  top:0;
+}
+
+#logo{
+  float: left;
+  width:100px;
+  height:40px;
+  background: white;
+  margin-left: 10px;
+  margin-top: 5px;
+  position:absolute;
+  font-size: 36px;
+  text-align: center;
+  color: #244ecc;
+
+  border-radius: 10px;
+}
+
+#title{
+  position: absolute;
+  float:left;
+  left: calc(2.5% + 114px);
+  margin-top: 23px;
+  font-size: 18px;
+  color:white;
+
+}
+#title ul{
+  line-height: 18px;
+  height:35px;
+  position:relative;
+  padding: 0;
+  margin: 0;
+  margin-top: -16px;
+  list-style: none;
+}
+
+#pic{
+  position: relative;
+  font-size: 40px;
+  color:white;
+  width: 200px;
+  margin-left: 40vw;
+  text-align: center;
+}
+
+.pic{
+  margin-top: 5px;
+}
+
+#menu{
+  float:right;
+  width:400px;
+  height: 5px;
+  margin-right: 10px;
+  margin-top: -39px;
+}
+#menu ul{
+  float:right;
+  list-style:none;
+  display: inline;
+  margin-right: 2.5%;
+  margin-top: 5px;
+}
+#menu ul li{
+  display: inline;
+  padding-right: 50px;
+  font-weight: bold;
+  color: white;
+}
+#maintitle{
+  margin-top: 45px;
+  padding-bottom: 35px;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+
+#undertext{
+  margin-top: -15px;
+  padding-bottom: 35px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-bottom: 5px solid white;
+}
+
+
+
+#content{
+
+  text-align: center;
+}
+
+#suggestionsUl{
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+
+  margin-left: 15vw;
+  list-style: none;
+  color:white;
+  text-align: center;
+}
+#suggestionsUl li{
+  cursor:pointer;
+
+    background: rgba(209,209,209,0.3);
+    width: calc(100% - 200px);
+    margin-bottom: 10px;
+    border-radius: 25px;
+}
+#suggestionsUl li ul{
+
+  margin-bottom: 10px;
+
+  list-style: none;
+  display: inline;
+
+}
+#suggestionsUl li ul li{
+  font-size: 20px;
+  display: inline;
+  background: none;
+  border-radius: none;
+}
+
+#footer{
+  background: rgba(209,209,209,0.9);
+  width: 100%;
+  height: 65px;
+  float: left;
+  margin-top: 60px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 50px
+
+}

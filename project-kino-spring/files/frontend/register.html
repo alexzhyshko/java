@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CinemaAdvisor</title>
+    <link rel="stylesheet" href="style/register.css">
+    <script src="js/register.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <div id="header">
+
+
+      <div id="pic"><a href="index.html"><i class="pic fas fa-film"></i></a></div>
+
+
+    </div>
+    <div id="maintitle"><a>Register</a></div>
+    <div id="content">
+
+      <div id="register">
+        <form class="register-form" method="post">
+          <input type="text" class="text" id="usrnm" name="username" placeholder="Username" required>
+          <br>
+          <input type="text" class="text" id="email" name="email" placeholder="E-mail" required>
+          <br>
+          <input type="password" class="text" id="pswrd" name="password" placeholder="Password" equired>
+          <br>
+          <input type="button" id="btn" name="submit" value="Register" onclick="register();">
+        </form>
+        <font size="2px" color="red" id="error"></font>
+
+      </div>
+
+
+    </div>
+    <div id="footer">
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CinemaAdvisor</title>
+    <link rel="stylesheet" href="style/login.css">
+    <script src="js/login.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+    <div id="header">
+
+
+      <div id="pic"><a href="index.html"><i class="pic fas fa-film"></i></a></div>
+
+
+    </div>
+    <div id="maintitle"><a>Welcome</a></div>
+    <div id="content">
+
+      <div id="register">
+        <div id="inner-register">
+          <h2>Register</h2>
+          <h4>You can register
+          <font color="white"><a href="register.html"> here</a></font>
+          if you don't have an account
+          <h4>
+        </div>
+
+      </div>
+      <div id="login">
+        <h2>Login</h2>
+        <form class="login-form" method="post">
+          <input type="text" class="text" name="username" id="usrnm" placeholder="Username" required>
+          <br>
+          <input type="password" class="text" name="password" id="pswrd" placeholder="Password" required>
+          <br>
+          <input type="button" id="btn" name="submit" value="Log in" onclick="login();">
+        </form>
+        <font size="2px" color="red" id="error"></font>
+      </div>
+
+    </div>
+    <div id="footer">
+    </div>
+
+  </body>
+</html>
