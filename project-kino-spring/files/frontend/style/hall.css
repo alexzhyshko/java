@@ -1,0 +1,356 @@
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root{
+  --winheight: 150px;
+}
+
+#copyright{
+  position:absolute;
+  margin-top: 5px;
+  margin-left: 8px;
+  font-size: 25px;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+h1{
+  color: #000;
+  font-weight: bold;
+  margin: 0;
+  font-size: 55px;
+  border-bottom: 4px solid white;
+
+}
+
+body{
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: url("img/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+#wrapper{
+
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  padding-top: 25px;
+  margin-top: 25px;
+  height: 100%;
+  min-height: 145vh;
+  background: rgba(209,209,209, 0.15);
+
+}
+#header{
+  width:95%;
+  height: 50px;
+  background: #244ecc;
+  position: fixed;
+  top:0;
+}
+
+#logo{
+  float: left;
+  width:100px;
+  height:40px;
+  background: white;
+  margin-left: 10px;
+  margin-top: 5px;
+  position:absolute;
+  font-size: 36px;
+  text-align: center;
+  color: #244ecc;
+
+  border-radius: 10px;
+}
+
+#title{
+  position: absolute;
+  float:left;
+  left: calc(2.5% + 114px);
+  margin-top: 23px;
+  font-size: 18px;
+  color:white;
+
+}
+#title ul{
+  line-height: 18px;
+  height:35px;
+  position:relative;
+  padding: 0;
+  margin: 0;
+  margin-top: -16px;
+  list-style: none;
+}
+
+#pic{
+  position: relative;
+  font-size: 40px;
+  color:white;
+  width: 200px;
+  margin-left: 40vw;
+  text-align: center;
+}
+
+.pic{
+  margin-top: 5px;
+}
+
+#menu{
+  float:right;
+  width:400px;
+  height: 5px;
+  margin-right: 10px;
+  margin-top: -39px;
+}
+#menu ul{
+  float:right;
+  list-style:none;
+  display: inline;
+  margin-right: 2.5%;
+  margin-top: 5px;
+}
+#menu ul li{
+  display: inline;
+  padding-right: 50px;
+  font-weight: bold;
+  color: white;
+}
+#maintitle{
+  margin-top: 45px;
+  padding-bottom: 35px;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+
+#undertext{
+  margin-top: -15px;
+  padding-bottom: 35px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  font-weight: lighter;
+  border-bottom: 5px solid white;
+}
+
+
+
+#plan{
+  float: left;
+  margin-left: 17%;
+  margin-top: 30px;
+  text-align: center;
+  height: 450px;
+}
+
+.row{
+  width:95%;
+}
+
+.clickable{
+  border-radius: 5px;
+  font-family: "Montserrat";
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  background: #2e62ff;
+  border: none;
+  outline: none;
+  color: #2e62ff;
+  margin-right: 3px;
+  margin-top: 3px;
+  cursor: pointer;
+  color: transparent;
+  text-shadow: 0 0 0 white;
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 1000;
+  transition: .1s;
+}
+.clickable:hover{
+  background:#5781ff;
+}
+
+
+.selected{
+  background: #c90e0e;
+  text-shadow: 0 0 0 white;
+  transition: .1s;
+}
+.selected:hover{
+  background: #d33e3e;
+}
+
+
+
+.taken{
+  background: #b9b9b9;
+  color: #b9b9b9;
+  text-shadow: 0 0 0 transparent;
+  transition: .25s;
+}
+.taken:hover{
+  background: #b9b9b9;
+  color: #818181;
+}
+
+.booked{
+  background: #6f6f6f;
+  color: #6f6f6f;
+  text-shadow: 0 0 0 transparent;
+  transition: .25s;
+}
+.booked:hover{
+  background: #6f6f6f;
+  color: #949494;
+}
+
+.transparent{
+  background: transparent;
+  color:transparent;
+  text-shadow: 0 0 0 transparent;
+}
+
+#info{
+  float: left;
+  margin-left: 2.5%;
+  margin-top: 33px;
+  background: rgba(209,209,209,0.3);
+  height: 350px;
+  width: 100px;
+  border: 2px solid rgba(209,209,209,0.6);
+}
+#list{
+  margin: 0;
+  padding: 0;
+  list-style:none;
+}
+#list li{
+  text-align: center;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: inherit;
+  height: 20px;
+  background: rgba(209,209,209,0.3);
+  border-right: 3px solid #2e62ff;
+  border-left: 3px solid #2e62ff;
+}
+
+
+#submit{
+  position: absolute;
+  top: 794px;
+  float:left;
+  margin-top: 10px;
+  width: 100px;
+  height:35px;
+  border: 2px solid #789e31;
+  outline: none;
+  font-family: "Montserrat";
+  font-weight: bold;
+  background: #ace246;
+  cursor: pointer;
+}
+
+#footer{
+  background: rgba(209,209,209,0.9);
+  width: 100%;
+  height: 65px;
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 50px
+
+}
+
+#prices{
+  text-align: center;
+}
+
+#priceUl{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: rgba(209,209,209,0.3);
+  width:50%;
+  height: 50px;
+  margin-left: 25%;
+  border-radius: 10px;
+  margin-top: 30px;
+  border: 3px solid white;
+}
+#priceUl li{
+  display: inline;
+  line-height: 50px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background: rgba(209,209,209,0.3);
+  padding-left: 7px;
+  padding-right: 7px;
+}
+#cheap::before{
+  content:"1-2 row: ";
+}
+#middle::before{
+  content:"3-6 row: ";
+}
+#expensive::before{
+  content:"7-9 row: ";
+}
+
+
+
+#placesUl{
+  border: 3px solid white;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: rgba(209,209,209,0.3);
+  width:50%;
+  margin-left: 25%;
+  border-radius: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+#placesUl li{
+  display: inline;
+  line-height: 50px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background: rgba(209,209,209,0.3);
+
+}
+
+
+#free::before{
+  content: "FREE";
+  background:  #2e62ff;
+}
+#booked::before{
+  content: "BOOKED";
+  background: #6f6f6f;
+}
+
+#bought::before{
+  content: "BOUGHT";
+  background:  #b9b9b9;
+}
+#overallprice{
+  padding-left: 35px;
+
+}
+#overallprice::after{
+  content: "\20B4";
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CinemaAdvisor</title>
+    <link rel="stylesheet" href="style/hall.css">
+    <script src="js/hallrender.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  </head>
+
+  <body onload="hallrender();">
+    <div id="wrapper">
+    <div id="header">
+      <div id="logo">
+        <a href="user.html"><i class="fas fa-users"></i></a>
+      </div>
+      <div id="title">
+        <ul>
+          <li>Your</li>
+          <li>Online Cinema Advisor</li>
+        </ul>
+      </div>
+      <div id="pic"><a href="index.html"><i class="pic fas fa-film"></i></a></div>
+
+      <div id="menu">
+        <ul>
+          <a href="today.html"><li>Today</li></a>
+          <a href="films.html"><li>Films</li></a>
+        </ul>
+      </div>
+    </div>
+    <div id="maintitle"><a>Seatplan</a></div>
+    <div id="undertext"></div>
+    <div id="content">
+      <div id="prices">
+        <ul id="priceUl">
+          <li id="cheap"></li>
+          <li id="middle"></li>
+          <li id="expensive"></li>
+        </ul>
+      </div>
+      <div id="placesinfo">
+        <ul id="placesUl">
+          <li id="free"></li>
+          <li id="booked"></li>
+          <li id="bought"></li>
+        </ul>
+      </div>
+      <div id="plan">
+
+      </div>
+      <div id="info">
+        <span id="overallprice"></span>
+        <ul id="list">
+
+        </ul>
+      <input id="submit" type="submit" name="submit" value="Book">
+      </div>
+
+
+    </div>
+  <div id="footer">&copy;Copyrights by Oleksandr Zhyshko.</div>
+  </body>
+</html>

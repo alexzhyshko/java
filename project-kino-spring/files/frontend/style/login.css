@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root{
+  --winheight: 150px;
+}
+
+#copyright{
+  position:absolute;
+  margin-top: 5px;
+  margin-left: 8px;
+  font-size: 25px;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+h1{
+  color: #000;
+  font-weight: bold;
+  margin: 0;
+  font-size: 55px;
+  border-bottom: 4px solid white;
+
+}
+h4{
+  margin-top: 80px;
+}
+h2{
+  padding-bottom: 0;
+  margin-bottom: -40px;
+  margin-top: 5px;
+  color: white;
+  font-weight: 1000;
+  font-size: 35px;
+  border-bottom: 3px solid white;
+}
+
+body{
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  background: url("img/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+#wrapper{
+
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  padding-top: 25px;
+  margin-top: 25px;
+  height: calc(100vh - 50px);
+  background: rgba(209,209,209, 0.15);
+
+}
+#header{
+  width:95%;
+  height: 50px;
+  background: #244ecc;
+  position: fixed;
+  top:0;
+}
+
+#pic{
+  position: relative;
+  font-size: 40px;
+  color:white;
+  width: 200px;
+  margin-left: 40vw;
+  text-align: center;
+}
+
+.pic{
+  margin-top: 5px;
+}
+
+#maintitle{
+  margin-top: 45px;
+  padding-bottom: 35px;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  border-bottom: 3px solid white;
+}
+
+#content{
+  margin-top: 10vh;
+}
+
+#register{
+  border-radius: 15px;
+  float:left;
+  width: 40%;
+  height: 100px;
+  background: rgba(209,209,209,0.3);
+  margin-left: 8vw;
+  font-size: 24px;
+  text-align: center;
+  padding-bottom:100px;
+
+
+}
+
+#login{
+  border-radius: 15px;
+  float: left;
+  width: 40%;
+  height: 200px;
+  background: rgba(209,209,209,0.3);
+  margin-left: 20px;
+  text-align: center;
+}
+.login-form{
+  margin-top: 50px;
+}
+.text{
+  font-family: "Montserrat";
+  width: 200px;
+  height: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  outline: none;
+  border:2px solid #fff;
+  background: rgba(209,209,209,0.9);
+  color:#2e62ff;
+  padding: 5px;
+  transition: .2s;
+}
+.text:focus{
+  border:2px solid #2e62ff;
+  padding: 5px;
+  transition: .2s;
+
+}
+
+#btn{
+  font-family: "Montserrat";
+  border-radius: 5px;
+  border: 2px solid #789e31;
+  background: #ace246;
+  outline: none;
+  cursor: pointer;
+}
