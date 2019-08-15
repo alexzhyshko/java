@@ -126,6 +126,11 @@ body{
   border-bottom: 5px solid white;
 }
 
+
+#content{
+  min-height: 60vh;
+}
+
 #list{
   text-align: center;
   list-style: none;

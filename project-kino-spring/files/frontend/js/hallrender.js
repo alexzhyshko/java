@@ -35,6 +35,10 @@ http.onreadystatechange = function(){
 
 
   }
+  if(http.readyState == 4 && http.status==400){
+    alert('You have to be logged in to book tickets. \nLog in first');
+    window.location.href=http.responseText;
+  }
 
 };
 
@@ -68,7 +72,7 @@ for(var i=1; i<rws+1;i++){
   }
   for(var j=1; j<columns-start; j++){
 
-    $('#plan')[0].innerHTML+='<input type="text" id="'+i+'-'+j+'" class="clickable" name="choice" value="'+i+'-'+j+'">';
+    $('#plan')[0].innerHTML+='<input type="text" id="'+i+'-'+j+'" class="clickable" name="choice" value="'+i+'-'+j+'" readonly="readonly">';
   }
 
   $('#plan')[0].innerHTML+='</div>';
@@ -141,6 +145,7 @@ $('#submit').click(function(){
   http2.send(res);
   http2.onreadystatechange = function(){
     if(http2.readyState == 4 && http2.status==300){
+
       window.location.href = http2.response;
     }
     if(http2.readyState == 4 && http2.status==400){

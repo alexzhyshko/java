@@ -34,6 +34,12 @@ public class App {
 		res.setHeader("Access-Control-Allow-Credentials", "true");
 		// hall seat status in array:(0 - free, 1 - booked, 2 - bought)
 		
+		if(req.getSession().getAttribute("username")==null) {
+			res.setStatus(400);
+			return "login.html";
+		}
+		
+		
 		String txt = req.getSession().getAttribute("seanse").toString();
 		
 		
@@ -191,10 +197,7 @@ public class App {
 	public String bui(HttpServletRequest req, HttpServletResponse res) {
 		res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
-		if(req.getSession().getAttribute("username")==null) {
-			res.setStatus(300);
-			return "login.html";
-		}
+		
 		try {
 		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 		res.setStatus(300);
@@ -224,6 +227,10 @@ public class App {
 	public String book(HttpServletRequest req, HttpServletResponse res) {
 		res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
+		if(req.getSession().getAttribute("username")==null) {
+			res.setStatus(300);
+			return "login.html";
+		}
 		boolean result=false;
 		try {
 			String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));

@@ -160,6 +160,10 @@ body{
 
 
 
+#content{
+  min-height: 45vmin;
+}
+
 #ticketsUl{
 
   padding: 0;
@@ -223,7 +227,6 @@ body{
 
 .tickets li{
   display: inline;
-  background: red;
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 5px;
