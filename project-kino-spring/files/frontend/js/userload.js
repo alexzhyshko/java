@@ -33,6 +33,8 @@ function reqListener(){
         var items = [];
         var seanse = item.split("/")[0];
         var title = seanse.split("+")[0];
+        var hall = title.split(',')[1];
+        hall = hall.substring(2,hall.length-6);
         var price = parseInt(title.split(",")[3]);
         var time = seanse.split("+")[1];
         var status = title.split(",")[2];
@@ -63,7 +65,6 @@ function reqListener(){
 
           }
         }
-
         overallPrice-=160;
         var push = '<li class="ticketList">'+
         '<ul class="innerUl">'+
@@ -78,7 +79,7 @@ function reqListener(){
           '  <ul class="ticketUl">';
 
             for(var i=0; i<splittedTickets.length;i++){
-              push+='<li class="ticket">'+splittedTickets[i].trim()+'</li>';
+              push+='<li class="ticket" style="background:'+hall+'">'+splittedTickets[i].trim()+'</li>';
             }
             push = push.substring(0,push.length-25);
             push+='</ul></li></ul></li>';
@@ -106,7 +107,6 @@ check();
     var datetime = elem[1].innerText;
     var status = elem[2].innerText;
     var places="";
-
     var pl = places = elem.children().children();
     for(var i=0; i<pl.length; i++){
       places+=pl[i].innerText+" ";
@@ -129,7 +129,7 @@ check();
     logout.send();
     logout.onreadystatechange = function(){
       if(logout.readyState == 4&& logout.status==200){
-        window.location.href = "index.html";
+        window.location.href = "login.html";
       }
     };
   });

@@ -147,6 +147,7 @@ body{
 #content{
 
   text-align: center;
+  min-height: 60vh;
 }
 
 #suggestionsUl{
