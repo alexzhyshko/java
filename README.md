@@ -1,7 +1,7 @@
 # Java repository
 ### Here are my Java projects that have made their way to github ###
 -----
-- ### ``` Bookshelf ``` ###.
+- ### ``` Bookshelf ``` ### .
 Library project, includes UI (like windows form), Works with MySQL database using JDBC driver.
 -----
 - ``` DBControll ```.
