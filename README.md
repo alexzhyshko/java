@@ -5,7 +5,7 @@
 Library project, includes UI (like windows form), Works with MySQL database using JDBC driver.
 -----
 - **``` DBControll ```**.
-This app is a simple database fill-up checker and status logger. Displays connected databses status and fillment on the form-like window.
+This app is a simple database fill-up checker and status logger. Displays connected databases status and fillment on the form-like window, and loggs everything to a file.
 -----
 - **``` TAProject ```**.
 University project on subject Theory of Algorithms, is a website with usage of MySQL database. Also, has a frontend part, made with my groupmate.
