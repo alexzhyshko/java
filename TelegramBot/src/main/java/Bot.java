@@ -43,6 +43,10 @@ public class Bot extends TelegramLongPollingBot {
 		return bot;
 	}
 
+	
+	
+	
+	
 	public void onUpdateReceived(Update update) {
 
 		SendMessage sendMessage = new SendMessage();
@@ -143,7 +147,7 @@ public class Bot extends TelegramLongPollingBot {
 			if (result) {
 				setOrderAgainButtons(sendMessage);
 				Product p = controller.getAllGoods().get(goodid);
-				sendMessage.setText("Заказ записан, ожидайте сообщение от админа");
+				sendMessage.setText("Заказ записан, ожидайте сообщение от админа(@"+controller.getAdminUsername()+")");
 				sendMsg(sendMessage, update);
 				SendMessage adminMsg = new SendMessage();
 				adminMsg.setChatId(controller.getAdminChatId());
@@ -307,13 +311,13 @@ public class Bot extends TelegramLongPollingBot {
 		replyKeyboardMarkup.setSelective(true);
 		replyKeyboardMarkup.setResizeKeyboard(true);
 		replyKeyboardMarkup.setOneTimeKeyboard(false);
-		int buttonsPerRow = 3;
+		int buttonsPerRow = 2;
 		List<KeyboardRow> keyboard = new ArrayList<>();
 		
 		int rows = goods.size() / buttonsPerRow + 1;
 		for (int i = 0; i < rows; i++) {
 			KeyboardRow keyboardRow = new KeyboardRow();
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < buttonsPerRow; j++) {
 				keyboardRow.add(
 						new KeyboardButton(goods.get(j+i*(buttonsPerRow-1)).getName() + ", " + goods.get(j+i*(buttonsPerRow-1)).getPrice() + " грн."));
 				
